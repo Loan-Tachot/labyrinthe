@@ -21,8 +21,11 @@ if ($date >= "12-22" && $date <= "12-25") {
     echo "<p>🎄 Joyeux Noël !</p>";
 }
 
-if ($date >= "12-29" && $date <= "12-31") {
+if ($date >= "12-28" && $date <= "12-31") {
     echo "<p>🎆 Bonne nouvelle année !</p>";
+}
+if ($date >= "12-25" && $date<= "12-29"){
+    echo "<p>🛏️ Noubliez pas de vous reposez !</p>";
 }
 ?>
 
