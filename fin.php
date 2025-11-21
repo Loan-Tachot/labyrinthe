@@ -1,6 +1,9 @@
 <?php
 session_start();
 $score = $_SESSION['score_final'] ?? 0;
+
+date_default_timezone_set("Europe/Paris");
+$date = date("m-d");
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -10,12 +13,21 @@ $score = $_SESSION['score_final'] ?? 0;
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <h1>Félicitations ! Vous avez trouvé la sortie !</h1>
-date_default_timezone_set("Europe/Paris")
-$date = date("m-d")
-if $date > "12-22" and $date < "12-25" echo(<p>joyeux Noël</p>)
-if $date > "12-29" and $date < "12-31" echo(<p>bonne nouvelle année</p>)
+
+<?php
+if ($date >= "12-22" && $date <= "12-25") {
+    echo "<p>🎄 Joyeux Noël !</p>";
+}
+
+if ($date >= "12-29" && $date <= "12-31") {
+    echo "<p>🎆 Bonne nouvelle année !</p>";
+}
+?>
+
 <p>Votre score (déplacements) : <strong><?= htmlspecialchars($score) ?></strong></p>
 <a href="index.php">Recommencer</a>
+
 </body>
 </html>
