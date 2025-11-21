@@ -36,8 +36,7 @@ function nouvelleOrientation($orientationActuelle, $directionAbsolue) {
 
 // Mettre à jour l'orientation si on vient d'un autre couloir
 if ($from) {
-    $passage = $db->querySingle("SELECT * FROM passage WHERE 
-        (couloir1=$from AND couloir2=$id) OR (couloir1=$id AND couloir2=$from)", true);
+    $passage = $db->querySingle("SELECT * FROM passage WHERE (couloir1=$from AND couloir2=$id) OR (couloir1=$id AND couloir2=$from)", true);
     if ($passage) {
         if ($passage['couloir1'] == $from) {
             $posAbsolue = $passage['position2'];
@@ -112,7 +111,7 @@ while ($p = $passages->fetchArray(SQLITE3_ASSOC)) {
     if ($p['type'] === 'libre' || $p['type'] === 'secret') {
         $lien = "jeu.php?id=$prochain&from=$id";
         echo "<li><a href='$lien'>$dirRel</a></li>";
-    } elseif ($p['type'] === 'grille') {
+    } else if ($p['type'] === 'grille') {
         if ($_SESSION['cles'] > 0) {
             $lien = "ouvrir.php?id=$id&vers=$prochain&from=$id";
             echo "<li><a href='$lien'>$dirRel (1 clé)</a></li>";
