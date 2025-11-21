@@ -11,16 +11,22 @@ $passage = $db->querySingle("SELECT * FROM passage WHERE
 
 if (!$passage) die("Aucun passage entre ces couloirs.");
 
-// Si c'est une grille et qu'elle n'est pas déjà libre
+// Initialisation des variables de session si nécessaire
+if (!isset($_SESSION['cles'])) $_SESSION['cles'] = 0;
+if (!isset($_SESSION['grille_ouverte'])) $_SESSION['grille_ouverte'] = [];
+
 if ($passage['type'] === 'grille') {
-    if (!isset($_SESSION['cles']) || $_SESSION['cles'] <= 0) {
+    if ($_SESSION['cles'] <= 0) {
         die("Vous n'avez pas de clé pour ouvrir cette grille !");
     }
+
+    // Retirer une clé
     $_SESSION['cles']--;
-    $db->exec("UPDATE passage SET type='libre' WHERE 
-        (couloir1=$idActuel AND couloir2=$vers) OR (couloir1=$vers AND couloir2=$idActuel)");
+
+    // Marquer la grille comme ouverte
+    $_SESSION['grille_ouverte'][] = $passage['couloir1'];
 }
 
-// Redirection vers le couloir ouvert en transmettant from pour orientation
+// Redirection
 header("Location: jeu.php?id=$vers&from=$idActuel");
 exit;

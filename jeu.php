@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors',1);
+ini_set('display_startup_errors',1);
+error_reporting(E_ALL);
+
 if (session_status() === PHP_SESSION_NONE) session_start();
 $db = new SQLite3('labyrinthe.db');
 
@@ -7,7 +11,8 @@ if (!isset($_SESSION['ancien_id'])) $_SESSION['ancien_id'] = -1;
 if (!isset($_SESSION['cles'])) $_SESSION['cles'] = 0;
 if (!isset($_SESSION['deplacements'])) $_SESSION['deplacements'] = 0;
 if (!isset($_SESSION['orientation'])) $_SESSION['orientation'] = 'N'; // Orientation initiale
-
+if (!isset($_SESSION['clef_recup'])) $_SESSION['clef_recup']=[];
+if (!isset($_SESSION['grille_ouvert'])) $_SESSION['grille_ouvert']=[];
 // ID du couloir actuel et ID d'où il vient
 $id = isset($_GET['id']) ? intval($_GET['id']) : $db->querySingle("SELECT id FROM couloir WHERE type='depart'");
 $from = isset($_GET['from']) ? intval($_GET['from']) : null;
@@ -64,10 +69,14 @@ $_SESSION['ancien_id'] = $id;
 
 // Gestion des clés
 $message = "";
-if ($couloir['type'] === 'cle') {
-    $_SESSION['cles']++;
-    $db->exec("UPDATE couloir SET type='vide' WHERE id=$id");
-    $message = "Vous avez trouvé une clé !";
+if ($couloir['type'] === 'cle')    
+{
+    if (((array_search($id ,$_SESSION['clef_recup']))) === false) 
+        {
+        $_SESSION['cles']++;
+        $_SESSION['clef_recup']=array_merge($_SESSION['clef_recup'],[$id]);
+        $message = "Vous avez trouvé une clé !";
+        }
 }
 
 // Récupération des passages
@@ -137,6 +146,8 @@ switch ($aléa_couloirs)
 <ul>
 <?php
 while ($p = $passages->fetchArray(SQLITE3_ASSOC)) {
+
+    // Détermination du couloir suivant et de la position absolue
     if ($p['couloir1'] == $id) {
         $prochain = $p['couloir2'];
         $posAbsolue = $p['position2'];
@@ -145,19 +156,43 @@ while ($p = $passages->fetchArray(SQLITE3_ASSOC)) {
         $posAbsolue = $p['position1'];
     }
 
+    // Direction relative
     $dirRel = directionRelative($_SESSION['orientation'], $posAbsolue);
 
+    // Cas : passage libre ou secret
     if ($p['type'] === 'libre' || $p['type'] === 'secret') {
         $lien = "jeu.php?id=$prochain&from=$id";
         echo "<li><a href='$lien'>$dirRel</a></li>";
-    } else if ($p['type'] === 'grille') {
-        if ($_SESSION['cles'] > 0) {
+    }
+
+    // Cas : grille
+    else if ($p['type'] === 'grille') {
+
+    // Initialisation de la session si nécessaire
+    if (!isset($_SESSION['grille_ouverte'])) {
+        $_SESSION['grille_ouverte'] = [];
+    }
+
+    // Vérifie si la grille est déjà ouverte
+    if (!in_array($p['couloir1'], $_SESSION['grille_ouverte'])) {
+
+        // Le joueur a au moins une clé
+        if (isset($_SESSION['cles']) && $_SESSION['cles'] > 0) {
             $lien = "ouvrir.php?id=$id&vers=$prochain&from=$id";
             echo "<li><a href='$lien'>$dirRel (1 clé)</a></li>";
-        } else {
+        } 
+        // Pas de clé
+        else {
             echo "<li>$dirRel ❌ (clé requise)</li>";
         }
+
+    } 
+    // Si la grille est déjà ouverte
+    else {
+        $lien = "jeu.php?id=$prochain&from=$id";
+        echo "<li><a href='$lien'>$dirRel</a></li>";
     }
+}
 }
 ?>
 </ul>

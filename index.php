@@ -2,7 +2,7 @@
 session_start();
 
 
-$db = new SQLite3('labyrithe.db');
+$db = new SQLite3('labyrinthe.db');
 
 // Récupération du couloir de départ
 $depart = $db->querySingle("SELECT id FROM couloir WHERE type='depart'");
@@ -16,6 +16,8 @@ $_SESSION['ancien_id'] = $depart; // pour éviter d'incrémenter deplacements au
 $_SESSION['deplacements'] = 0;
 $_SESSION['cles'] = 0;
 $_SESSION['orientation'] = 'N';
+$_SESSION['clef_recup'] = [];
+$_SESSION['grille_ouvert'] = [];
 ?>
 <!DOCTYPE html>
 <html lang="fr">
