@@ -24,7 +24,7 @@ $_SESSION['orientation'] = 'N';
 </head>
 <body>
 <h1>Bienvenue dans le Labyrinthe</h1>
-<p>votres but est de sortir du labirinthe cliquez sur le boutons de où vous voulez aller pour y aller!</p>
+<p>Votre but est de sortir du labyrinthe. Cliquez sur le bouton correspondant à la direction dans laquelle vous souhaitez aller.</p>
 <p>Bonne Chance !</p>
 <p>Cliquez pour commencer :</p>
 <a href="jeu.php?id=<?= $depart ?>">Commencer la partie</a>
