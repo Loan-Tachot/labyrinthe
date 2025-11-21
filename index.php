@@ -1,6 +1,8 @@
 <?php
 session_start();
-$db = new SQLite3('labyrinthe.db');
+
+
+$db = new SQLite3('labyrithe.db');
 
 // Récupération du couloir de départ
 $depart = $db->querySingle("SELECT id FROM couloir WHERE type='depart'");
