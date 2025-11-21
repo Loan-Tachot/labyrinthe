@@ -1,0 +1,35 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 50px;
+}
+a {
+    text-decoration: none;
+    color: white;
+    background: green;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+ ul {
+    list-style: none; /* Supprime les puces */
+    padding: 0;
+    margin: 0;
+}
+
+ul li {
+    margin: 10px 0; /* espace vertical entre les boutons */
+}
+
+ul li a {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+ul li a:hover {
+    background-color: #45a049;
+}

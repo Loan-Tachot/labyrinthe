@@ -1,0 +1,6 @@
+labyrinthe/
+├── index.php        # Page d'accueil + démarrage
+├── jeu.php          # Page du couloir courant
+├── fin.php          # Page de fin
+├── labyrinthe.db    # Base de données SQLite
+├── style.css        # Style simple
