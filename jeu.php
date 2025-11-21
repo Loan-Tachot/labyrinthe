@@ -82,8 +82,47 @@ $passages = $db->query("SELECT * FROM passage WHERE couloir1=$id OR couloir2=$id
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Couloir <?= $id ?> (<?= $couloir['type'] ?>)</h1>
+<h1>Couloir ??? </h1>
 
+
+<?php 
+$aléa_couloirs = random_int(1,10);
+switch ($aléa_couloirs) 
+{
+    case 1:
+        echo "<p>Une salle parfaitement carrée dont les murs sont recouverts de symboles luminescents. Au centre, un léger voile de brume violette flotte au ras du sol, diffusant une douce lumière surnaturelle qui semble pulser au rythme d’un battement invisible.</p>";
+        break;
+    case 2:
+        echo "<p>La pièce, entièrement carrée, est composée de panneaux métalliques lisses parcourus de fines lignes lumineuses bleu cyan. Des hologrammes statiques flottent à quelques centimètres du sol, projetant des données incompréhensibles dans un silence mécanique.</p>";
+        break;
+    case 3:
+        echo "<p>Les murs en pierre brute forment un carré parfait, décoré de tapisseries anciennes aux couleurs délavées. La lumière des torches danse sur les surfaces rugueuses, faisant ressortir chaque fissure et chaque trace du temps.</p>";
+        break;
+    case 4:
+        echo "<p>La pièce carrée baigne dans une semi-obscurité ; les murs sont marqués de taches d’humidité sombres, et une odeur métallique se mêle à un léger courant d’air froid. Le sol semble un peu trop collant par endroits, sans qu’on comprenne pourquoi.</p>";
+        break;
+    case 5:
+        echo "<p>Dans cette salle carrée aux tons beige clair, le sol est recouvert de tatamis parfaitement alignés. Une petite fontaine murale diffuse un filet d'eau paisible, tandis qu’un parfum délicat de bois de cèdre imprègne l’air.</p>";
+        break;
+    case 6:
+        echo "<p>La pièce, rigoureusement carrée, est décorée d’engrenages en cuivre fixés aux murs et de tubes transparents où circulent de petites bulles de vapeur. Un mécanisme central émet un tic-tac régulier qui résonne doucement.</p>";
+        break;
+    case 7:
+        echo "<p>Cette salle carrée est ornée de moulures dorées qui encadrent des fresques au plafond. Un tapis pourpre parfaitement centré couvre une partie du sol en marbre, reflétant la lumière chaleureuse d’un grand lustre en cristal.</p>";
+        break;
+    case 8:
+        echo "<p>Les murs carrés sont couverts de fissures et de peinture écaillée. Le sol poussiéreux porte les marques d’anciens meubles, et quelques feuilles mortes ont été poussées dans un coin par un courant d’air errant.</p>";
+        break;
+    case 9:
+        echo "<p>Dans cette pièce carrée, la nature a repris ses droits : des racines serpentent le long des murs et un tapis de mousse recouvre le sol. Des éclats de lumière verte filtrent à travers des feuillages suspendus comme un plafond vivant.</p>";
+        break;
+    case 10:
+        echo "<p>Une salle carrée immaculée, aux murs blancs lisses et au sol parfaitement net. Des écrans d’analyse affichent des données en continu, tandis qu’un léger bourdonnement électronique remplit l’air stérile.</p>";
+        break;
+}    
+?>
+
+<!DOCTYPE html>
 <div class="infos">
     <p>🔑 Clés : <strong><?= $_SESSION['cles'] ?></strong></p>
     <p>🚶 Déplacements : <strong><?= $_SESSION['deplacements'] ?></strong></p>
