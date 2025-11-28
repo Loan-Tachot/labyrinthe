@@ -29,7 +29,7 @@ $_SESSION['grille_ouvert'] = [];
 <body>
 <h1>Bienvenue dans le Labyrinthe</h1>
 <p>Votre but est de sortir du labyrinthe. Cliquez sur le bouton correspondant à la direction dans laquelle vous souhaitez aller.</p>
-<p>Ce labirinthe est hors de la limite de la logique et le temps ne secoule pas partout pareil,</p>
+<p>Ce labirinthe est hors de la limite de la logique et le temps ne se déroule pas de la même manière partout,</p>
 <p>Bonne Chance !</p>
 <p>Cliquez pour commencer :</p>
 <a href="jeu.php?id=<?= $depart ?>">Commencer la partie</a>
@@ -38,3 +38,4 @@ $_SESSION['grille_ouvert'] = [];
 
 
 <?php
+
